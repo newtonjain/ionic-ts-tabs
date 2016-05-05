@@ -36,13 +36,23 @@ gulp.task('watch', function() {
 
 // Run gulp tsc to transpile your TypeScript files from
 // app directory to www/js directory
-gulp.task('tsc', function() {
+gulp.task('tsc', function() {    
+  var sourcemaps = require("gulp-sourcemaps");
   var ts = require('gulp-typescript');
   var tsProject = ts.createProject('tsconfig.json');
-	var tsResult = tsProject.src('app')  
-		.pipe(ts(tsProject));
-	
-	return tsResult.js.pipe(gulp.dest('www/js/'));
+	return tsProject
+    .src('app')
+    .pipe(sourcemaps.init())      
+		.pipe(ts(tsProject))
+    .js
+    .pipe(sourcemaps.write('./', 
+      {
+        includeContent:true, 
+        sourceRoot: function(file) {
+          return file.cwd + '\\js';
+        }          
+      }))
+	  .pipe(gulp.dest('www/js/'));
 });
 
 gulp.task('install', ['git-check'], function() {

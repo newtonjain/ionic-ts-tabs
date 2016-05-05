@@ -2,7 +2,7 @@
   "compilerOptions": {
     "module": "commonjs",
     "target": "es5",
-    "noImplicitAny": false,
+    "noImplicitAny": true,
     "sourceMap": true,
     "outDir": "www/js"
   },  
@@ -12,6 +12,7 @@
         "typings/main.d.ts",
         "www/lib",
         "platforms",
-        "bld"
+        "bld",
+        ".vscode"
       ]
 }
